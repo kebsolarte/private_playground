@@ -45,7 +45,7 @@ for n in range(0, nr_numbers):
 
 # Print an easy level password - order not randomised:
 # e.g. 4 letter, 2 symbol, 2 number = JduE&!91
-# Remember: join is a string method, the "" inits the variable
+# Remember: join is a string method, the "" inits the string
 ez_password = "".join(password)
 print(f"Your easy password is: {ez_password}")
 
