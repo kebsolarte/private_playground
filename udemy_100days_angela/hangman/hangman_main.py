@@ -5,11 +5,13 @@ from hangman_art import logo, stages
 
 # Function for clearing screen for every iteration of the loop
 def clear_screen():
-    os.system('cls')
+    # 'cls' for Windows, 'clear' for Mac/Linux
+    #  os.name returns 'nt' for Windows and 'posix' on Linux/Mac
+    os.system('cls' if os.name == 'nt' else 'clear')
 
 # Randomly choose a word from the word_list and assign it to a variable called chosen_word.
 chosen_word = random.choice(word_list)
-print(chosen_word) # For testing only
+# print(chosen_word) # For testing only
 
 # Initializing counters/lists
 display = ["_"] * len(chosen_word)
