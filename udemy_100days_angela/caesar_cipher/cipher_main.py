@@ -7,7 +7,11 @@ def encrypt(text, shift):
     
     for letter in text:
         index = alphabet.index(letter)
-        shifted_index = index + shift #troubleshoot
+        shifted_index = index + shift 
+
+        if shifted_index >= len(alphabet):
+            shifted_index = shifted_index - len(alphabet)
+
         shifted_letter = alphabet[shifted_index]
         encrypted_letters.append(shifted_letter)
 
@@ -31,14 +35,19 @@ def decrypt(text, shift):
 
 while True:
     direction = input("Type 'encode' to encrypt or 'decode' to decrypt:\n").lower()
-    text = input("Type your message:\n").lower()
-    shift = int(input("Type the shift number:\n"))
+    
+    if direction == 'quit':
+        break
+    elif direction in ['encode', 'decode']:
+        text = input("Type your message:\n").lower()
+        shift = int(input("Type the shift number:\n"))
 
-    if direction == 'encode':
-        word = encrypt(text, shift)
-    elif direction == 'decode':
-        word = decrypt(text,shift)
-    elif direction == 'quit':
+        if direction == 'encode':
+            word = encrypt(text, shift)
+        elif direction == 'decode':
+            word = decrypt(text,shift)
+    else:
+        print("Wrong choice.")
         break
 
     print(f"The {direction}d word is {word}.")
