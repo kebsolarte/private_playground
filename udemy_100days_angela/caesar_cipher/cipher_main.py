@@ -3,7 +3,7 @@ import string
 alphabet = list(string.ascii_lowercase) + [' ']
 
 def encrypt(text, shift):
-    encrypted_letters = []
+    encrypted_word= ""
     
     for letter in text:
         index = alphabet.index(letter)
@@ -13,23 +13,19 @@ def encrypt(text, shift):
             shifted_index = shifted_index - len(alphabet)
 
         shifted_letter = alphabet[shifted_index]
-        encrypted_letters.append(shifted_letter)
-
-    encrypted_word = "".join(encrypted_letters)
+        encrypted_word += shifted_letter
 
     return encrypted_word
 
 
 def decrypt(text, shift):
-    decrypted_letters = []
+    decrypted_word = ""
 
     for letter in text:
         index = alphabet.index(letter)
         shifted_index = index - shift
         shifted_letter = alphabet[shifted_index]
-        decrypted_letters.append(shifted_letter)
-
-    decrypted_word = "".join(decrypted_letters)
+        decrypted_word = shifted_letter
 
     return decrypted_word
 
