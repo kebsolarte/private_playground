@@ -8,10 +8,7 @@ def encrypt(text, shift):
     for letter in text:
         index = alphabet.index(letter)
         shifted_index = index + shift 
-
-        if shifted_index >= len(alphabet):
-            shifted_index = shifted_index - len(alphabet)
-
+        shifted_index %= len(alphabet)
         shifted_letter = alphabet[shifted_index]
         encrypted_word += shifted_letter
 
