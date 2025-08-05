@@ -9,7 +9,7 @@ auction_end = False
 # main program
 while not auction_end:
     name = input("What is your name?: ")
-    bid = int(input("What's your bid?: "))
+    bid = float(input("What's your bid?: "))
 
     # populates the dictionary with user input
     bids[name] = bid
@@ -31,6 +31,8 @@ while not auction_end:
             if bid > highest_bid:
                 highest_bidder = name
                 highest_bid = bid
+
+        # other shorthand method is highest_bidder = max(bids, key=bids.get)
             
         print(f"The winner is {highest_bidder} with a bid of ${highest_bid}!")
 
