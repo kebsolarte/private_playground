@@ -1,10 +1,14 @@
 import string
 
+# construct a list of alphabet letters plus space character
 alphabet = list(string.ascii_lowercase) + [' ']
 
+# define the encrypt function
 def encrypt(text, shift):
     encrypted_word= ""
     
+    # checks the index of each letter and shifts the index using the specified shift
+    # module expression makes sure that the program loops through alphabet when index is exceeded
     for letter in text:
         index = alphabet.index(letter)
         shifted_index = index + shift 
@@ -15,9 +19,11 @@ def encrypt(text, shift):
     return encrypted_word
 
 
+# define the decrypt function
 def decrypt(text, shift):
     decrypted_word = ""
 
+    # checks the index of each letter and shifts the index back
     for letter in text:
         index = alphabet.index(letter)
         shifted_index = index - shift
@@ -26,6 +32,8 @@ def decrypt(text, shift):
 
     return decrypted_word
 
+
+# main program
 while True:
     direction = input("Type 'encode' to encrypt or 'decode' to decrypt:\n").lower()
     
