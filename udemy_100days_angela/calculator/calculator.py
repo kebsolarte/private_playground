@@ -19,6 +19,7 @@ while True:
     num1 = float(input("What is the first number?: "))
     operation = input("Pick an operation (+, -, *, /): ")
     num2 = float(input("What is the second number?: "))
+
     result = calculate(num1, num2, operation)
     print(f"{num1} {operation} {num2} = {result}")
 
@@ -30,10 +31,13 @@ while True:
             num1 = result
             operation = input("Pick an operation (+, -, *, /): ")
             num2 = float(input("What is the second number?: "))
+
             result = calculate(num1, num2, operation)
             print(f"{num1} {operation} {num2} = {result}")
             continue
+
         elif continue_calculation == 'n': break
+        
         else:
             print("Invalid answer!")
             continue
