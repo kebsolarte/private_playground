@@ -15,6 +15,7 @@ def calculate(num1, num2, operation):
         return "Invalid"
 
 # main program
+# angela's solution creates a dict of operation symbols and functions (i.e. operations["+"](num1, num2)) and recursion
 while True:
     num1 = float(input("What is the first number?: "))
     operation = input("Pick an operation (+, -, *, /): ")
@@ -37,7 +38,7 @@ while True:
             continue
 
         elif continue_calculation == 'n': break
-        
+
         else:
             print("Invalid answer!")
             continue
