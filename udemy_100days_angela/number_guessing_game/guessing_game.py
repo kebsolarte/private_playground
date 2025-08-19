@@ -40,7 +40,7 @@ while not game_over:
 
     # main loop for guessing the number
     while attempts_left > 0:
-        guess = int(input("\nWhat is your guess?: "))
+        guess = int(input("\nI'm thinking a number from 1 and 100. What do you think is that number?: "))
 
         result = check_guess(guess, number)
 
