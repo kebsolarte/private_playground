@@ -1,49 +1,6 @@
 import time
 import sys
-
-# available coffee types and their attributes
-COFFEE_TYPES = {
-    "espresso": {
-        "ingredients": {
-            "water": 50,
-            "coffee": 18,
-            "milk": 0,
-        },
-        "price": 1.50,
-    },
-    "latte": {
-        "ingredients": {
-            "water": 200,
-            "coffee": 24,
-            "milk": 150,
-        },
-        "price": 2.50,
-    },
-    "cappuccino": {
-        "ingredients": {
-            "water": 250,
-            "coffee": 24,
-            "milk": 100,
-        },
-        "price": 3.00,
-    },
-}
-
-
-# resources bank at full capacity
-RESOURCES_FULL = {
-    "water": 300,
-    "coffee": 100,
-    "milk": 200,
-}
-
-# coin values in cents
-COIN_VALUES = {
-    "penny": 0.01,
-    "nickel": 0.05,
-    "dime": 0.1,
-    "quarter": 0.25,
-}
+from constants import COFFEE_TYPES, RESOURCES_FULL, COIN_VALUES
 
 def loading_animation(text, duration=3):
     """Creates a loading animation and a little pause for printing texts"""
@@ -130,60 +87,10 @@ def give_change(payment, coffee_type):
     if change == 0:
         print("Thank you for giving the exact amount!")
     else:
-        print(f"Thank you. Here's your change of ${change}.")
+        print(f"Thank you. Here's your change of ${change:.2f}.")
 
 def another_transaction():
     """Asks if user wants another transaction."""
     repeat = input("Would you like another transaction (y/n)?: ").lower()
 
     return repeat == 'y'
-
-
-# main program
-successful_transaction = False
-
-resource_bank = {
-    "water": 300,
-    "coffee": 100,
-    "milk": 200,
-}
-
-while not successful_transaction:
-    print("Welcome to Kevin's coffee machine!")
-
-    # take order
-    order = input("What do you want today? I can make you an espresso, latte, or cappuccino!: ").lower()
-
-    # secret maintenance functions for operators
-    if order == 'report':
-        report_resources(resource_bank)
-    elif order == 'refill':
-        resource_bank = refill_resources()
-        report_resources(resource_bank)
-
-    # check availability
-    elif not check_availability(order, resource_bank): continue
-
-    # proceeds with order and asks for payment
-    else:
-        print(f"Nice order! That would be ${COFFEE_TYPES[order]["price"]} only. Kindly insert your coins below:")
-        payment = get_payment()
-
-        # checks if payment is enough, and proceeds with making order if it is
-        if check_payment(payment, order):
-            give_change(payment, order)
-            loading_animation(f"Let me make your {order}")
-            loading_animation("Creating yummy magic")
-            loading_animation("Dispensing")
-            print(f"Thank you for waiting! Here's you {order}. Have a nice day!")
-            resource_bank = update_resources(resource_bank, order)
-        else:
-            print("Sorry, you have entered an insufficient amount.")
-            print(f"Giving you back your ${payment}. Please try again.")
-
-    if another_transaction():
-        continue
-    else:
-        successful_transaction = True
-
-    
