@@ -1,3 +1,6 @@
+import time
+import sys
+
 # available coffee types and their attributes
 COFFEE_TYPES = {
     "espresso": {
@@ -42,9 +45,20 @@ COIN_VALUES = {
     "quarter": 0.25,
 }
 
+def loading_animation(text, duration=3):
+    """Creates a loading animation and a little pause for printing texts"""
+    end_time = time.time() + duration
+    while time.time() < end_time:
+        # creates the dots animation
+        for dot in range(4):
+            sys.stdout.write(f"\r{text}{'.' * dot} ")   # \r overwrites the current line
+            sys.stdout.flush()  # this forces immediate printing without waiting for the loop
+            time.sleep(0.5)
+    print()
 
 def report_resources(resource_bank):
     """Reports current level of resources."""
+    loading_animation("Checking resource levels")
     print(f"""
           The remaining resources are:
           Water: {resource_bank["water"]} mL
@@ -62,23 +76,22 @@ def update_resources(resource_bank, coffee_type):
 
 def refill_resources():
     """Resets the level of resources."""
+    loading_animation("Refilling resources")
     return RESOURCES_FULL
 
 
 def check_resources(resource_bank, coffee_type):
     """Checks if resources are enough for the desired coffee type."""
-    if all(
+    # all() only takes one iterable as an argument, either tuple or list
+    return all([
         resource_bank["water"] >= COFFEE_TYPES[coffee_type]["ingredients"]["water"],
         resource_bank["coffee"] >= COFFEE_TYPES[coffee_type]["ingredients"]["coffee"],
         resource_bank["milk"] >= COFFEE_TYPES[coffee_type]["ingredients"]["milk"]
-        ): 
-        return True
-    else:
-        return False
+        ])
     
 def check_availability(order, resource_bank):
     """Checks if order is available."""
-    if order not in [coffee for coffee in COFFEE_TYPES.keys]:
+    if order not in [coffee for coffee in COFFEE_TYPES.keys()]:
         print(f"Sorry {order} is not available. Please try again.")
         return False
     elif not check_resources(resource_bank, order):
@@ -104,14 +117,11 @@ def get_payment():
 
     total = penny + nickel + dime + quarter
 
-    return total
+    return round(total, 2)
 
 def check_payment(payment, coffee_type):
     """Checks if payment is enough for the order."""
-    if payment >= COFFEE_TYPES[coffee_type]["price"]:
-        return True
-    else:
-        return False
+    return payment >= COFFEE_TYPES[coffee_type]["price"]
 
 def give_change(payment, coffee_type):
     """Computes and returns the change to the customer, if any."""
@@ -126,10 +136,7 @@ def another_transaction():
     """Asks if user wants another transaction."""
     repeat = input("Would you like another transaction (y/n)?: ").lower()
 
-    if repeat == 'y':
-        return True
-    else: 
-        return False
+    return repeat == 'y'
 
 
 # main program
@@ -152,6 +159,7 @@ while not successful_transaction:
         report_resources(resource_bank)
     elif order == 'refill':
         resource_bank = refill_resources()
+        report_resources(resource_bank)
 
     # check availability
     elif not check_availability(order, resource_bank): continue
@@ -164,9 +172,9 @@ while not successful_transaction:
         # checks if payment is enough, and proceeds with making order if it is
         if check_payment(payment, order):
             give_change(payment, order)
-            print(f"Let me make your {order}.")
-            print("Creating yummy magic ...")
-            print("Dispensing ...")
+            loading_animation(f"Let me make your {order}")
+            loading_animation("Creating yummy magic")
+            loading_animation("Dispensing")
             print(f"Thank you for waiting! Here's you {order}. Have a nice day!")
             resource_bank = update_resources(resource_bank, order)
         else:
