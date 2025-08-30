@@ -37,7 +37,7 @@ while not successful_transaction:
             utils.loading_animation(f"Let me make your {order}")
             utils.loading_animation("Creating yummy magic")
             utils.loading_animation("Dispensing")
-            print(f"Thank you for waiting! Here's you {order}. Have a nice day!")
+            print(f"Thank you for waiting! Here's you {order} ☕️. Have a nice day!")
             resource_bank = utils.update_resources(resource_bank, order)
         else:
             print("Sorry, you have entered an insufficient amount.")
