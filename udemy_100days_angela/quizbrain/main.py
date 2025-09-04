@@ -2,9 +2,10 @@ from data import question_data
 from question import Question
 from quizbrain import QuizBrain
 
-# Creating the question bank using list comprehension
+# Creating the question bank using list comprehension, where each item is a Question object
 question_bank =[Question(item["text"], item["answer"]) for item in question_data]
 
+# Creates a QuizBrain object by passing in the question bank
 quiz = QuizBrain(question_bank)
 
 # Main program

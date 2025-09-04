@@ -1,3 +1,4 @@
+# List of question and answer pairs
 question_data = [
     {"text": "Is Chewy a toy poodle?", "answer": "True"},
     {"text": "Does Chewy bite?", "answer": "False"},
