@@ -12,7 +12,15 @@ def forward_right(num):
         timmy.forward(100)
         timmy.right(90)
 
-forward_right(4)
+def dashed_line(num):
+    """Moving the turtle forward with a trailing dashed line"""
+    for _ in range(num):
+        timmy.forward(10)
+        timmy.penup()
+        timmy.forward(10)
+        timmy.pendown()
+
+dashed_line(10)
 
 
 
