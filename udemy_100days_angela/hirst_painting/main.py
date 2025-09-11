@@ -16,13 +16,15 @@ pointer.speed("fast")
 screen = Screen()
 screen.colormode(255)
 
+# Creating function to draw dots
 def draw_dot(size):
     color = random.choice(colors_list)
     pointer.dot(size, color)
 
-
+# Setting initial position of turtle object to lower left
 position = [-200, -200]
 
+# Main loop for drawing 10x10 dots array
 for i in range(1,11):
     position[1] += 50.00
     new_position = tuple(position)
@@ -32,6 +34,7 @@ for i in range(1,11):
         draw_dot(20)
         pointer.forward(50)
 
+# Hiding the turtle object after dot painting
 pointer.color("white")
 
 screen.exitonclick()
