@@ -1,3 +1,4 @@
+# trying out some turtle methods
 import random
 from turtle import Turtle, Screen
 
@@ -11,7 +12,7 @@ timmy.speed("fastest")
 screen = Screen()
 screen.colormode(255)
 
-# Moving the Turtle
+# Fucntions
 def forward_right(num, angle):
     """Moves turtle num times forward and face right"""
     for _ in range(num):
@@ -34,7 +35,7 @@ def random_color():
     timmy.color(r,g,b)
 
 def draw_shapes(list):
-    """Move the turtle to create polygons with random pen color"""
+    """Create a series of polygons with random pen color"""
     for item in list:
         n = item
         angle = 360/item
@@ -42,13 +43,15 @@ def draw_shapes(list):
         forward_right(n, angle)
 
 def random_walk(steps):
+    """Move the turtle in a random right angle direction"""
     for _ in range(steps):
         random_color()
         timmy.forward(30)
-        direction = random.choice([timmy.right, timmy.left])
-        direction(90)
+        direction = random.choice([timmy.right, timmy.left])    # Assign a random turn function to direction
+        direction(90)   # Call the assigned random turn function
 
 def draw_spirograph(size, angle):
+    """Draw a spirograph using the turtle"""
     total_angle = 0
     while total_angle < 360:
         random_color()
@@ -56,11 +59,10 @@ def draw_spirograph(size, angle):
         timmy.circle(size)
         total_angle += angle
 
-# list = [i for i in range(3,10)]
-# draw_shapes(list)
+list = [i for i in range(3,10)]
+draw_shapes(list)
 
-# random_walk(1000)
+# draw_spirograph(100,5)
 
-draw_spirograph(100,5)
-# Displaying Turtle in a window
+# Closing the screen or window on click
 screen.exitonclick()
