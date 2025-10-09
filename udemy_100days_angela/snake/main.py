@@ -19,10 +19,7 @@ while not game_over:
     
     snake.move()
 
-    snake[0].forward(20)
-    snake[0].left(90)
-
-
+    snake.segment[0].left(90)
 
 
 
