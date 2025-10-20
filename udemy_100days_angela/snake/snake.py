@@ -1,5 +1,6 @@
 from turtle import Turtle
 
+# Constants
 STARTING_POSITION = 0
 MOVE_DISTANCE =20
 RIGHT = 0
@@ -25,8 +26,8 @@ class Snake:
 
         xcor = STARTING_POSITION
         for i in range(0, 3):
-            segment = Turtle("square")
-            segment.color("white")
+            segment = Turtle('square')
+            segment.color('white')
             segment.penup()
             segment.setx(xcor)
             self.segment.append(segment)
