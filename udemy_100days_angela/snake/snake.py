@@ -1,7 +1,7 @@
 from turtle import Turtle
 
 # Constants
-STARTING_POSITION = 0
+STARTING_X_POSITION = 0
 MOVE_DISTANCE =20
 RIGHT = 0
 UP = 90
@@ -14,33 +14,47 @@ class Snake:
     """
 
     def __init__(self) -> None:
-        self.segment = []
+        self.segments = []
         self.create_snake()
-        self.head = self.segment[0]
+        self.head = self.segments[0]
 
 
     def create_snake(self) -> None:
         """
         Creates the first three segments of the snake.
         """
-
-        xcor = STARTING_POSITION
+        xcor = STARTING_X_POSITION
         for i in range(0, 3):
-            segment = Turtle('square')
-            segment.color('white')
-            segment.penup()
-            segment.setx(xcor)
-            self.segment.append(segment)
+            self.add_segment((xcor,0))
             xcor -= 20
+
+
+    def add_segment(self, position) -> None:
+        """
+        Creates a new snake segment.
+        """
+        segment = Turtle('square')
+        segment.color('white')
+        segment.penup()
+        segment.goto(position)
+        self.segments.append(segment)
+
+
+    def extend(self) -> None:
+        """
+        Extends the snake once it catches the food.
+        """        
+        last_segment_position = self.segments[-1].position()
+        self.add_segment(last_segment_position)
 
 
     def move(self) -> None:
         """
         Initiates a forward cascading movement of the snake segments.
         """
-        for i in range(len(self.segment) - 1, 0, -1):
-            pos_prev = self.segment[i - 1].position()
-            self.segment[i].goto(pos_prev)
+        for i in range(len(self.segments) - 1, 0, -1):
+            pos_prev = self.segments[i - 1].position()
+            self.segments[i].goto(pos_prev)
 
         self.head.forward(MOVE_DISTANCE)
 
