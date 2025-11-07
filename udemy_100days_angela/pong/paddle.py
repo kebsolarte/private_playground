@@ -1,8 +1,8 @@
 from turtle import Turtle
 
-PADDLE_WIDTH = 5
+PADDLE_WIDTH = 3
 PADDLE_HEIGHT = 1
-MOVEMENT_DISTANCE = 20
+MOVEMENT_DISTANCE = 50
 X_POS = 350
 Y_POS = 0
 
@@ -10,13 +10,11 @@ class Paddle(Turtle):
     
     def __init__(self, side:str = 'right') -> None:
         super().__init__()
-        self.width = PADDLE_WIDTH
-        self.height = PADDLE_HEIGHT
         self.side = side
         self.penup()
         self.color('white')
         self.shape('square')
-        self.shapesize(stretch_wid=self.width, stretch_len=self.height)
+        self.shapesize(stretch_wid=PADDLE_WIDTH, stretch_len=PADDLE_HEIGHT)
         self.y_pos = Y_POS
 
         if self.side == 'left':
