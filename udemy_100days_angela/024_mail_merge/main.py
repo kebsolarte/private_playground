@@ -7,6 +7,11 @@ OUTPUT_PATH = "Output/ReadyToSend"
 with open(GUEST_PATH, mode='r') as file:
     guest_list = [line.strip() for line in list(file.readlines())]
 
+# Better/cleaner version of the line above since list() is redundant and .readlines() is not needed.
+# .readlines() method is not memory efficient!
+# with open(GUEST_PATH, mode="r") as file:
+#     guest_list = [line.strip() for line in file]
+
 # Open template
 with open(LETTER_TEMPLATE_PATH, mode="r") as file:
     letter_template = file.read()
