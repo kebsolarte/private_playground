@@ -7,6 +7,7 @@
 # Using csv module to open csv files
 # import csv
 
+# csv.reader() only returns a reader object for lazy evaluation, and does not load the data in memory
 # with open('weather_data.csv', mode='r') as file:
 #     data = csv.reader(file)
 #     temperatures = [int(row[1]) for row in data if row[1] != 'temp']
