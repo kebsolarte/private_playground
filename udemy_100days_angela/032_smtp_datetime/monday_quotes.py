@@ -9,7 +9,7 @@ import random
 load_dotenv()
 
 
-# Get credentials
+# Get email credentials 
 sender_email = os.getenv("WORK_GMAIL_UN")
 sender_email_pw = os.getenv("WORK_GMAIL_APP_PW")
 recipient_email = os.getenv("PERSONAL_GMAIL_UN")
@@ -31,7 +31,7 @@ email_msg.set_content(random.choice(quotes))
 
 
 # Send_quote_to_email function
-def send_quote_to_email(msg: EmailMessage):
+def send_quote_to_email(msg:EmailMessage):
     with smtp.SMTP(host="smtp.gmail.com", port=587, timeout=10) as conn:
         conn.starttls()
         conn.login(user=sender_email, password=sender_email_pw)
