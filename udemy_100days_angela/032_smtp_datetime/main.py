@@ -26,27 +26,27 @@ birthdays = pd.read_csv('birthdays.csv')
 
 
 # Create basic functions
-def check_birthday(file: pd.DataFrame) -> tuple:
-    """Checks birthdays list and returns a tuple containing the name and email of the celebrant"""
+def check_birthday(file: pd.DataFrame) -> dict:
+    """Checks birthdays list and returns a dict containing the name and email of the celebrant"""
     # Checks if there is a matching birthdate today
     for _, row in file.iterrows():
         if row['month'] == dt.datetime.now().month and row['day'] == dt.datetime.now().day:
-            return (row['name'], row['email'])
+            return {'name': row['name'], 'email': row['email']}
     return None
 
 
-def construct_greeting(templates:list, celebrant:tuple) -> EmailMessage:
+def construct_greeting(templates:list, celebrant:dict) -> EmailMessage:
     """Constructs the email message object from the templates and celebrant details"""
     # Load a random template and replace name placeholder
     with open(random.choice(templates), mode='r') as template:
         greeting_msg = template.read()
-        greeting_msg = greeting_msg.replace('[NAME]', celebrant[0])
+        greeting_msg = greeting_msg.replace('[NAME]', celebrant['name'])
 
     # Construct the email message object
     email_msg = EmailMessage()
     email_msg['From'] = sender_email
-    email_msg['To'] = celebrant[1]
-    email_msg['Subject'] = f"Happy Birthday, {celebrant[0]}!"
+    email_msg['To'] = celebrant['email']
+    email_msg['Subject'] = f"Happy Birthday, {celebrant['name']}!"
     email_msg.set_content(greeting_msg)
 
     return email_msg
@@ -66,10 +66,8 @@ celebrant = check_birthday(file=birthdays)
 if celebrant:
     msg = construct_greeting(templates=templates_paths, celebrant=celebrant)
     send_greeting_to_email(msg=msg)
-    print(f"Sent a birthday greeting to {celebrant[0]}.")
+    print(f"Sent a birthday greeting to {celebrant['name']}.")
 else:
     print("There are no birthday celebrants today.")
-
-
 
 
