@@ -4,7 +4,7 @@ import requests
 
 
 def get_quote():
-    # Connect ot the API and get reponse
+    # Connect to the API and get reponse
     response = requests.get('https://api.kanye.rest')
 
     # Raise an exception if response is not 200
