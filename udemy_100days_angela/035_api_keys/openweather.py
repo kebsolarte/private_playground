@@ -38,4 +38,7 @@ def will_it_rain(weather_ids: list) -> bool:
     # Better code: use the lazy built-in func any() which returns true as soon as it finds something truthy
     return any(id < 700 for id in weather_ids)
 
+# There's a part about using Twilio API to send a notif via message, but I opted to do it some other time
+# For now, confirming the API call via a print statement
 print(will_it_rain(ow_data_weather_ids))
+
