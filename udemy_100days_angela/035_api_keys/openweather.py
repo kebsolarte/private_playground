@@ -14,6 +14,7 @@ MY_LONG = os.getenv('MY_LONG')
 
 
 # Get hourly OpenWeather data
+# Make sure that the endpoint is for free accounts, otherwise, you'll encounter a 401 error
 OW_ENDPOINT = 'https://api.openweathermap.org/data/2.5/forecast'
 parameters = {
     'lat': MY_LAT,
