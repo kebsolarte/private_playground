@@ -72,7 +72,7 @@ def get_closing_difference(data: tuple) -> tuple:
     """Gets the difference between yesterday and day before closing stock prices, 
      and return the direction and percent change as tuple."""
     difference = round(data[0]-data[1], 2)
-    percent_change = round(difference / data[1], 2)
+    percent_change = round((difference / data[1])*100, 2)
     if difference > 0:
         direction = '🔺'
     else: direction = '🔻'
@@ -117,13 +117,17 @@ print(f'Getting {STOCK} stock prices ...')
 stock_data = get_latest_stock_close_volumes(url=STOCK_API, params=STOCK_PARAMS)
 closing_difference = get_closing_difference(data=stock_data)
 
-print(f'Gathering top news articles about {STOCK} and {COMPANY_NAME} ...')
-news = get_top_headlines(url=NEWS_API, params=NEWS_PARAMS)
+if closing_difference[1] >= 5:
+    print(f'Gathering top news articles about {STOCK} and {COMPANY_NAME} ...')
+    news = get_top_headlines(url=NEWS_API, params=NEWS_PARAMS)
 
-print(f'Sending news articles to {RECIPIENT_EMAIL} ...')
-for article in news:
-    email_msg = construct_news_email(stock=STOCK, closing_difference=closing_difference, news=article)
-    send_news_email(msg=email_msg)
+    print(f'Sending news articles to {RECIPIENT_EMAIL} ...')
+    for article in news:
+        email_msg = construct_news_email(stock=STOCK, closing_difference=closing_difference, news=article)
+        send_news_email(msg=email_msg)
 
-print(f"DONE! Top headlines regarding {STOCK} were sent to {RECIPIENT_EMAIL}.")
+    print(f"DONE! Top headlines regarding {STOCK} were sent to {RECIPIENT_EMAIL}.")
+
+else:
+    print(f"{STOCK} stock price did not change significantly between {PREVIOUS_CLOSE_DATE} and {LATEST_CLOSE_DATE}.")
 
