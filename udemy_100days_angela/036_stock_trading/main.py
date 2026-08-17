@@ -70,12 +70,13 @@ def get_latest_stock_close_volumes(url: str, params: dict) -> tuple:
 
 def get_closing_difference(data: tuple) -> tuple:
     """Gets the difference between yesterday and day before closing stock prices, 
-     and return the direction and value as tuple."""
+     and return the direction and percent change as tuple."""
     difference = round(data[0]-data[1], 2)
+    percent_change = round(difference / data[1], 2)
     if difference > 0:
         direction = '🔺'
     else: direction = '🔻'
-    return (direction, abs(difference))
+    return (direction, abs(percent_change))
 
 
 def get_top_headlines(url: str, params: dict) -> list:
