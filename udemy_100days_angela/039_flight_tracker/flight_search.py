@@ -11,7 +11,7 @@ class FlightSearch:
 
     def check_roundtrip_flights(self, origin_code: str, destination_code: str, outbound_date: datetime, return_date: datetime) -> dict:
         """GET request to get google flights search through SerpAPI."""
-        parameters = {
+        query = {
             "engine": "google_flights",
             "departure_id": origin_code,
             "arrival_id": destination_code,
@@ -22,7 +22,7 @@ class FlightSearch:
             "currency": "USD",
             "api_key": self.api_key,
         }
-        response = requests.get(url=self.base_endpoint, params=parameters)
+        response = requests.get(url=self.base_endpoint, params=query)
         return response.json()
 
 
