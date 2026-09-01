@@ -4,6 +4,7 @@ from pprint import pprint
 from data_manager import DataManager
 from flight_search import FlightSearch
 from datetime import datetime, timedelta
+from flight_data import FlightData
 
 
 
@@ -23,5 +24,6 @@ RETURN_DATE = OUTBOUND_DATE + timedelta(weeks=24)
 # pprint(sheety_data)
 
 google_flights = FlightSearch(endpoint=SERPAPI_BASE_ENDPOINT, api_key=SERPAPI_KEY)
-flights_data = google_flights.check_roundtrip_flights(origin_code=ORIGIN_CODE, destination_code='SIN', outbound_date=OUTBOUND_DATE, return_date=RETURN_DATE)
-pprint(flights_data)
+raw_flights_data = google_flights.check_roundtrip_flights(origin_code=ORIGIN_CODE, destination_code='SIN', outbound_date=OUTBOUND_DATE, return_date=RETURN_DATE)
+flights = FlightData(outbound_date=OUTBOUND_DATE, return_date=RETURN_DATE, raw_json_response=raw_flights_data)
+
