@@ -14,8 +14,8 @@ SHEETY_TOKEN = os.getenv('SHEETY_TOKEN')
 SERPAPI_BASE_ENDPOINT = 'https://serpapi.com/search'
 SERPAPI_KEY = os.getenv('SERP_KEY')
 ORIGIN_CODE = 'MNL'
-OUTBOUND_DATE = datetime.now().date()
-RETURN_DATE = OUTBOUND_DATE + timedelta(weeks=24)
+OUTBOUND_DATE = datetime.now().date() + timedelta(days=90)
+RETURN_DATE = OUTBOUND_DATE + timedelta(weeks=1)
 
 
 # Creating the sheety DataManager object and pulling the data in sheets DB
@@ -30,7 +30,7 @@ google_flights = FlightSearch(endpoint=SERPAPI_BASE_ENDPOINT, api_key=SERPAPI_KE
 # Main program
 # Iterate over each row in sheety_data. itertuples is faster than iterrows.
 for row in sheety_data.itertuples(index=False):
-    print(f"Checking if there is a cheaper flight for {row.city} ...")
+    print(f"Checking if there is a cheaper flight for {row.city} from {OUTBOUND_DATE} to {RETURN_DATE}...")
 
     # Get available flights(FlightData object)
     flights = google_flights.check_roundtrip_flights(
