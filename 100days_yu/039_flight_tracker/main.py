@@ -4,7 +4,6 @@ from pprint import pprint
 from data_manager import DataManager
 from flight_search import FlightSearch
 from datetime import datetime, timedelta
-from flight_data import FlightData
 
 
 load_dotenv()
