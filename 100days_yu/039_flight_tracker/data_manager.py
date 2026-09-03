@@ -1,4 +1,5 @@
 import requests
+import pandas as pd
 
 
 class DataManager:
@@ -11,10 +12,12 @@ class DataManager:
         }
 
 
-    def get_saved_flights_details(self) -> dict:
+    def get_saved_flights_details(self) -> pd.DataFrame:
         """GET request for retrieving data in sheets DB"""
         response = requests.get(url=self.base_endpoint, headers=self.headers)
-        return response.json()['prices']
+        data = response.json()['prices']
+        print("Retrieving saved flight details from GSheets tracker ...")
+        return pd.DataFrame(data)
 
 
     def update_saved_flight_lowest_price(self, obj_id: int, new_price: float) -> None:

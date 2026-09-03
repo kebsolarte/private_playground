@@ -1,4 +1,3 @@
-import requests
 from datetime import datetime
 
 class FlightData:
@@ -12,14 +11,16 @@ class FlightData:
 
         # Handling missing best or other flights
         try:
-            self.best_flights = {item['flights'][0]['airline']: item['price'] for item in raw_json_response['best_flights'] if item.get('price', None) != None}
+            self.best_flights = {item['flights'][0]['airline']: float(item['price']) for item in raw_json_response['best_flights'] if item.get('price', None) != None}
         except KeyError:
             self.best_flights = {}
+            print("No best flights from API response.")
 
         try:
-            self.other_flights ={item['flights'][0]['airline']: item['price'] for item in raw_json_response['other_flights'] if item.get('price', None) != None}
+            self.other_flights ={item['flights'][0]['airline']: float(item['price']) for item in raw_json_response['other_flights'] if item.get('price', None) != None}
         except KeyError:
             self.other_flights = {}
+            print("No other flights from API response.")
 
         # Uses the find_cheapest_flight method to find the cheapest flight pair
         self.cheapest_flight = self.find_cheapest_flight()
@@ -30,8 +31,21 @@ class FlightData:
         # Combine flight details, if keys overlap, the item in best flights will overwrite the older data
         combined_flights = {**self.other_flights, **self.best_flights}
 
-        # Finds the cheapest pair in combined_flights
-        cheapest = min(combined_flights, key=combined_flights.get)
-        return (cheapest, combined_flights[cheapest])
+        # Finds the cheapest pair in combined_flights and return the flight pair
+        cheapest_flight = min(combined_flights, key=combined_flights.get)
+        return (cheapest_flight, combined_flights[cheapest_flight])
+
+
+    def compare_and_update_cheapest_flight_price(self, stored_price: float ) -> bool:
+        """Compares the pulled cheapest flight data to the sheets DB data.
+            A bool is returned to trigger downstream activities if a cheaper price is found."""
+
+        # Comparing prices
+        if self.cheapest_flight[1] < stored_price:
+            print(f"Found a cheaper flight price for {self.arrival_country} from {self.cheapest_flight[0]}!")
+            return True
+        else:
+            print(f"No cheaper flight found for {self.arrival_country}.")
+            return False
 
 
