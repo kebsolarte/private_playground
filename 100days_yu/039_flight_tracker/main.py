@@ -45,7 +45,7 @@ for row in sheety_data.itertuples(index=False):
     if flights.compare_and_update_cheapest_flight_price(stored_price=row.lowestPrice):
         print(f"Updating stored cheapest flight price for {row.city} ...")
         sheety.update_saved_flight_lowest_price(obj_id=row.id, new_price=flights.cheapest_flight[1])
-        print("SEND NOTIF")
+       
 
     print("---------- Moving on to the next item on the list ----------")
 print("Done looking for cheaper flights! Book your flight now or check back tomorrow for fresh data!")
